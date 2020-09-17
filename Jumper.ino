@@ -24,8 +24,8 @@ void setup()
 void loop() 
 {
   //90 = stationary (doesn't mean it stops moving, it just writes to stay in that same place)
-//  servoR.write(180); //0 = backwards, 180 = forwards
-//  servoL.write(0); //0 = forwards, 180 = backwards
+  //for servo Right: 180 = forwards
+  //for servo Left: 0 = forwards
 
   if(ble.available() > 0)
   {
