@@ -1,14 +1,16 @@
-//eddy! <3
-
 #include <Servo.h>
 #include <SoftwareSerial.h>
 
 Servo servoL;
 Servo servoR;
 char data = 0;
-SoftwareSerial ble(0,1); //rx and tx
 
-const int buzzPin = 12;
+SoftwareSerial ble(0,1); //rx and tx
+// software serial may be overkill esp. since this is BLE on RX and TX pins naturally anyway ???? but ok
+
+//NOW USE Serial1
+
+const int buzzPin = 12; //attach buzzer here
 
 void setup() 
 {
@@ -31,14 +33,16 @@ void loop()
   {
     data = ble.read();
     Serial.println(data);
-    
-    if(data=='a'){forward();}
-    else if(data=='b'){left();}
-    else if(data=='c'){backward();}
-    else if(data=='d'){right();}
-    else{stationary();}
 
-    if(data=='G'){horn();}
+    if(data=='w'){forward();} //switch case? but if im doing differential drive this should not be the case.
+    else if(data=='a'){left();}
+    else if(data=='s'){backward();}
+    else if(data=='d'){right();}
+    
+    else if(data=='e'){horn();}
+    else if(data=='x'){stationary();}
+
+    // INSTALL DIFFERENTIAL DRIVE INTO THIS IN ORDER TO STEER AND DRIVE //
   }
 }
 
@@ -84,5 +88,7 @@ void stationary()
 
 void horn()
 {
-  tone(buzzPin, 1000, 1000);
+  //tone(buzzPin, 1000, 1000);
+
+  digitalWrite(buzzPin, HIGH);
 }
